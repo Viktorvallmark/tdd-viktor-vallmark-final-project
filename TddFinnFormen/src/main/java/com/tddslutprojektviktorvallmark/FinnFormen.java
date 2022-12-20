@@ -4,14 +4,14 @@ package com.tddslutprojektviktorvallmark;
 public class FinnFormen {
 
     private Vector[] listOfVectors;
-    private Vector vec1 = new Vector(0,0,0);
+/*     private Vector vec1 = new Vector(0,0,0);
     private Vector vec2 = new Vector(1,0,0);
     private Vector vec3 = new Vector(1,1,0);
     private Vector vec4 = new Vector(0,1,0);
     private Vector vec5 = new Vector(0,0,1);
     private Vector vec6 = new Vector(1,0,1);
     private Vector vec7 = new Vector(1,1,1);
-    private Vector vec8 = new Vector(0,1,1);
+    private Vector vec8 = new Vector(0,1,1); */
 
     public FinnFormen(Vector ...vectors)
     {
@@ -63,10 +63,11 @@ public class FinnFormen {
                     }
                 }
             }
-            case 8 -> {
-
+            default -> 
+            {
+                answer += "Something went wrong please run the program again! You might have entered more than 5 vectors in the vectorlist."+
+                "For identification of vectorlist of > 5 entries, please use the method check3DShape()";
             }
-
         }
         return answer;
     }
@@ -137,8 +138,21 @@ public class FinnFormen {
                 if(vectors[5].getCoords()[1] - vectors[6].getCoords()[1] == vectors[0].getCoords()[0] - vectors[1].getCoords()[0])
                 {
                     //Check for another square in this if-loop.
+                    if(vectors[4].getCoords()[0] - vectors[5].getCoords()[0] == vectors[4].getCoords()[1] - vectors[5].getCoords()[1]
+                    && vectors[4].getCoords()[0] - vectors[6].getCoords()[0] == vectors[4].getCoords()[1] - vectors[6].getCoords()[1]
+                    && vectors[4].getCoords()[0] - vectors[7].getCoords()[0] == vectors[4].getCoords()[1] - vectors[7].getCoords()[1])
+                    {
+                        answer += "Cube";
+                    }
                 }
             }
+            if(vectors[4].getCoords()[0] == 1)
+            {
+                //TODO Check for a rectangle and see if it has depth in this if-loop.
+            }
+        }else 
+        {
+            answer += "3-D Shape";
         }
 
 
