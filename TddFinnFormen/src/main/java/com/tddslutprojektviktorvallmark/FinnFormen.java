@@ -1,21 +1,16 @@
 package com.tddslutprojektviktorvallmark;
 
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+
 public class FinnFormen {
 
     private Vector[] listOfVectors;
-/*     private Vector vec1 = new Vector(0,0,0);
-    private Vector vec2 = new Vector(1,0,0);
-    private Vector vec3 = new Vector(1,1,0);
-    private Vector vec4 = new Vector(0,1,0);
-    private Vector vec5 = new Vector(0,0,1);
-    private Vector vec6 = new Vector(1,0,1);
-    private Vector vec7 = new Vector(1,1,1);
-    private Vector vec8 = new Vector(0,1,1); */
 
-    public FinnFormen(Vector ...vectors)
+    public FinnFormen(Vector @NotNull...vectors)
     {
-
         this.listOfVectors = new Vector[vectors.length];
 
         for (int i = 0; i < vectors.length; i++)
@@ -38,36 +33,35 @@ public class FinnFormen {
         String answer = "";
 
         switch (vectorList.length) {
-            case 0 -> {
+            case 0 ->
                 answer += "None";
-            }
-            case 1 -> {
+
+            case 1 ->
                 answer += "Dot";
-            }
-            case 2 -> {
+
+            case 2 ->
                 answer += "Line";
-            }
-            case 3 -> {
+
+            case 3 ->
                 answer += "Triangle";
-            }
-            case 4 -> {
+
+            case 4 ->
                answer += check2DShape(vectorList);
-            }
+
             case 5 -> {
                 if(check2DShape(vectorList).equals("Square") || check2DShape(vectorList).equals("Rectangle"))
                 {
-                    if(vectorList[0].getCoords()[3] == vectorList[1].getCoords()[3] && vectorList[0].getCoords()[3] == vectorList[2].getCoords()[3]
-                    && vectorList[0].getCoords()[3] == vectorList[3].getCoords()[3] && !(vectorList[0].getCoords()[3] == vectorList[4].getCoords()[3]))
+                    if(vectorList[0].getCoords()[2] == vectorList[1].getCoords()[2] && vectorList[0].getCoords()[2] == vectorList[2].getCoords()[2]
+                    && vectorList[0].getCoords()[2] == vectorList[3].getCoords()[2] && !(vectorList[0].getCoords()[2] == vectorList[4].getCoords()[2]))
                     {
                         answer += "Pyramid";
                     }
                 }
             }
-            default -> 
-            {
+            default ->
                 answer += "Something went wrong please run the program again! You might have entered more than 5 vectors in the vectorlist."+
-                "For identification of vectorlist of > 5 entries, please use the method check3DShape()";
-            }
+                " For identification of vectorlist of > 5 entries, please use the method check3DShape()";
+
         }
         return answer;
     }
@@ -98,10 +92,15 @@ public class FinnFormen {
         return answer;
     }
 
-    private String check3DShape(Vector[] vectors)
+    public String check3DShape(Vector[] vectors)
     {
         String answer = "";
         double[] z_coord = new double[vectors.length];
+        boolean argument = z_coord[0] == z_coord[1] && z_coord[0] == z_coord[2] && z_coord[0] == z_coord[3] && z_coord[0] != z_coord[4];
+        Vector[] subArray1 = Arrays.copyOfRange(vectors, 0, 4);
+        Vector[] subArray2 = Arrays.copyOfRange(vectors, 5, 8);
+        String answerArray1 = check2DShape(subArray1);
+        String answerArray2 = check2DShape(subArray2);
 
         if(vectors[0].getCoords()[0] - vectors[1].getCoords()[0] == vectors[0].getCoords()[1] - vectors[1].getCoords()[1]
                 && vectors[0].getCoords()[0] - vectors[2].getCoords()[0] == vectors[0].getCoords()[1] - vectors[2].getCoords()[1]
@@ -111,8 +110,7 @@ public class FinnFormen {
             {
                 z_coord[i] = vectors[i].getCoords()[2];
             }
-            if(z_coord[0] == z_coord[1] && z_coord[0] == z_coord[2] && z_coord[0] == z_coord[3]
-                && z_coord[0] != z_coord[4])
+            if(argument)
         {
             answer += "Pyramid";
         }
@@ -124,8 +122,7 @@ public class FinnFormen {
             {
                 z_coord[i] = vectors[i].getCoords()[2];
             }
-            if(z_coord[0] == z_coord[1] && z_coord[0] == z_coord[2] && z_coord[0] == z_coord[3]
-                    && z_coord[0] != z_coord[4])
+            if(argument)
             {
                 answer += "Pyramid from a Rectangle";
             }
@@ -146,14 +143,17 @@ public class FinnFormen {
                     }
                 }
             }
-            if(vectors[4].getCoords()[0] == 1)
+            if(answerArray1.equals("Rectangle") || answerArray2.equals("Rectangle"))
             {
-                //TODO Check for a rectangle and see if it has depth in this if-loop.
+                if(subArray1[3].getCoords()[2] > subArray1[0].getCoords()[2] || subArray1[3].getCoords()[2] > subArray1[1].getCoords()[2]
+                || subArray1[3].getCoords()[2] > subArray1[2].getCoords()[2] || subArray1[7].getCoords()[2] > subArray1[4].getCoords()[2]
+                || subArray1[7].getCoords()[2] > subArray1[5].getCoords()[2] || subArray1[7].getCoords()[2] > subArray1[6].getCoords()[2])
+                {
+                    answer += "Rectangular Parallelepiped";
+                }
             }
-        }else 
-        {
+        }else
             answer += "3-D Shape";
-        }
 
 
 
