@@ -1,6 +1,6 @@
 package com.tddslutprojektviktorvallmark;
 
-import org.jetbrains.annotations.Contract;
+
 public class Vector {
     //Fields
     private double[] vec;
